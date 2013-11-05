@@ -1,18 +1,22 @@
 var exec = require("child_process").exec;
 
-var start = function() {
+var start = function(response) {
   console.log("start");
 
-  var content = "empty";
   exec("ls -lah", function (error, stdout, stderr) {
+    response.writeHead(200, {"Content-Type":"text/html"});
+    response.write(stdout);
+    response.end();
     content = stdout;
   });
-  return content;
 }
 
-var upload = function() {
+var upload = function(response) {
   console.log("upload");
-  return "Hello Upload";
+
+  response.writeHead(200, {"Content-Type":"text/html"});
+  response.write("Hello Upload");
+  response.end();
 }
 exports.start = start;
 exports.upload = upload;
